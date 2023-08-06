@@ -11,32 +11,32 @@ using namespace std;
 
 int main()
 {
-    int x, K=200,  x2, x1, n; //dek zmiennych calkowitych
-    double pom , odch; //dek zmiennych rzeczywistych
+    int x, K=200,  x2, x1, n; //declaring intigers
+    double pom , odch; //decraling doubles
     srand(time(NULL));
     fstream plik;
     plik.open("wyniki.txt", ios::out);
     if (plik.good() == true)
     {
-        cin >> n; //podanie zakresu startowego
-        for (int N = n; N < 10000; N++) //petla dla roznych wart. N
+        cin >> n; //user declares initial range
+        for (int N = n; N < 10000; N++) //loop for diffrent N values
         {
             x2 = 0;
             x1 = 0;
-            for (int j = 0; j < K; j++) //petla dla kazdego pijaka
+            for (int j = 0; j < K; j++) //loop for every drunkard
             {
                 x = 0;
-                for (int i = 0; i < N; i++) //suma krokow pijaka
+                for (int i = 0; i < N; i++) //sum of drunkard's steps
                 {
                     pom = rand() % 101 / double(100);
                     if (pom < 0.5) x++;
                     if (pom >= 0.5) x--;
                     //cout << x << endl;
                 }
-                x2 += x * x; //suma kwadratow
-                x1 += x; //suma
+                x2 += x * x; //sum of squares
+                x1 += x; //sum
             }
-            odch = sqrt(x2 / double(K) - x1 * x1 / double(K) / double(K)); //odchylenie standardowe
+            odch = sqrt(x2 / double(K) - x1 * x1 / double(K) / double(K)); //standard deviation
            // cout << N << " " << odch << endl;
             plik << N << " " << odch << endl;
         }
@@ -48,13 +48,4 @@ int main()
    
 }
 
-// Run program: Ctrl + F5 or Debug > Start Without Debugging menu
-// Debug program: F5 or Debug > Start Debugging menu
 
-// Tips for Getting Started: 
-//   1. Use the Solution Explorer window to add/manage files
-//   2. Use the Team Explorer window to connect to source control
-//   3. Use the Output window to see build output and other messages
-//   4. Use the Error List window to view errors
-//   5. Go to Project > Add New Item to create new code files, or Project > Add Existing Item to add existing code files to the project
-//   6. In the future, to open this project again, go to File > Open > Project and select the .sln file
