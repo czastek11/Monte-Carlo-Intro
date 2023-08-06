@@ -12,7 +12,7 @@ double rand1()
     return rand() % 1001 / 1000.0;
 }
 
-void pokaz(int** space, int L) //funkcja testowa do pokazywania pozycji
+void pokaz(int** space, int L) //function for showing currecnt pozition
 {
     for (int i = 0; i < L; i++)
     {
@@ -30,7 +30,7 @@ int main()
     plik1.open("D od K.txt",ios::out);
     plik2.open("D od C.txt",ios::out);
     plik.open("trajektoria.txt",ios::out);
-    int L = 20, n = 200; //deklaracja wielkosci przestrzeni LxL oraz ilosci atomow N
+    int L = 20, n = 200; //declaration of space size LxL and number of particles n
     srand(time(NULL));
     int** space = new int* [L];
     int pom=0;
@@ -42,7 +42,7 @@ int main()
     double DR2=0,DR2_sr=0;
     double D=0;
     double C=0;
-    for (int i = 0; i < L; i++)  //utworzenie i wyzerowanie przestrzeni LxL
+    for (int i = 0; i < L; i++)  //creation and setting to 0 space LxL
     {
         space[i] = new int[L];
         for (int j = 0; j < L; j++)
@@ -50,19 +50,19 @@ int main()
             space[i][j] = 0;
         }
     }
-    int* INext = new int[L]; //utworzenie tablicy sasiadow dla przesuniecia prawo/gora
+    int* INext = new int[L]; //creation of array for neighbours for moving right/up
     for (int i = 0; i < L; i++)
     {
         INext[i] = i + 1;
     }
     INext[L - 1] = 0;
-    int* IPrev = new int[L];    //utworzenie tablicy sasiadow dla przesuniecia lewo/dol
+    int* IPrev = new int[L];    //utworzenie tablicy sasiadow dla przesuniecia left/down
     for (int i = 0; i < L; i++)
     {
         IPrev[i] = i - 1;
     }
     IPrev[0] = L-1;
-for(int N=n;N<n+1;N++) //petla krokow monte-carlo (zmiana liczby atomow->zmiana stezenia C=n(L^-2)
+for(int N=n;N<n+1;N++) //monte-carlo loop (change of number of atoms->change of concentration C=n(L^-2)
 {
 
     if(dx!=NULL)
@@ -93,13 +93,13 @@ for(int N=n;N<n+1;N++) //petla krokow monte-carlo (zmiana liczby atomow->zmiana 
     dx = new int[N];
     dy = new int[N];
     dRxR=new double[N];
-    x = new int[N];    //tablica pozycji
-    y = new int[N];    //tablica pozycji
+    x = new int[N];    //table of position
+    y = new int[N];    //table of position
 
     //pokaz(space, L);
 
 
-    for(int K=1;K<61;K++) //petla krokow monte-carlo (zmiana liczby krokow)
+    for(int K=1;K<61;K++) //monte carlo steps loop (change in number of iterations)
     {
         DR2_sr = 0;
         for (int nr = 0; nr < 30; nr++)
@@ -111,7 +111,7 @@ for(int N=n;N<n+1;N++) //petla krokow monte-carlo (zmiana liczby atomow->zmiana 
                     space[i][j] = 0;
                 }
             }
-            for (int i = 0; i < N; i++) //petla odpowiadajaca za wylosowanie miejsc atomow w przestrzeni
+            for (int i = 0; i < N; i++) //loop for assining starting particles setting randomly
             {
 
                 while (true)
@@ -127,40 +127,40 @@ for(int N=n;N<n+1;N++) //petla krokow monte-carlo (zmiana liczby atomow->zmiana 
             }
 
             DR2 = 0;
-            for (int j = 0; j < N; j++) //wyzerowanie delt
+            for (int j = 0; j < N; j++) //setting deltas to zero
             {
                 dRxR[j] = 0;
                 dx[j] = 0;
                 dy[j] = 0;
 
             }
-            for (int i = 0; i < K; i++) //petla odpowiadajca za przemieszczenie modelu o K krokow
+            for (int i = 0; i < K; i++) //loop for moving model by K steps
             {
-                for (int j = 0; j < N; j++) //petla po wszystkich atomach
+                for (int j = 0; j < N; j++) //loop after all particles
                 {
                     pom = rand() % 4;
-                    if (pom == 0 && space[INext[x[j]]][y[j]] == 0) //warunek przemieszczenia sie w gore
+                    if (pom == 0 && space[INext[x[j]]][y[j]] == 0) //condition for moving up
                     {
                         space[INext[x[j]]][y[j]] = 1;
                         space[x[j]][y[j]] = 0;
                         x[j] = INext[x[j]];
                         dx[j]++;
                     }
-                    if (pom == 1 && space[IPrev[x[j]]][y[j]] == 0) //warunek przemieszczenia sie w dol
+                    if (pom == 1 && space[IPrev[x[j]]][y[j]] == 0) //condition for moving down
                     {
                         space[IPrev[x[j]]][y[j]] = 1;
                         space[x[j]][y[j]] = 0;
                         x[j] = IPrev[x[j]];
                         dx[j]--;
                     }
-                    if (pom == 2 && space[x[j]][INext[y[j]]] == 0) //warunek przemieszczenia sie w prawo
+                    if (pom == 2 && space[x[j]][INext[y[j]]] == 0) //condition for moving right
                     {
                         space[x[j]][INext[y[j]]] = 1;
                         space[x[j]][y[j]] = 0;
                         y[j] = INext[y[j]];
                         dy[j]++;
                     }
-                    if (pom == 3 && space[x[j]][IPrev[y[j]]] == 0)//warunek przemieszczenia sie w lewo
+                    if (pom == 3 && space[x[j]][IPrev[y[j]]] == 0)//condition for moving left
                     {
                         space[x[j]][IPrev[y[j]]] = 1;
                         space[x[j]][y[j]] = 0;
@@ -168,20 +168,20 @@ for(int N=n;N<n+1;N++) //petla krokow monte-carlo (zmiana liczby atomow->zmiana 
                         dy[j]--;
                     }
                 }
-                plik << x[0] << " " << y[0] << endl; //wypisanie pozycji do pliku (uzyte w symulacji trajektorii pojedynczej czastki)
+                plik << x[0] << " " << y[0] << endl; //writing out the position to a file (used in the simulation of the trajectory of a single particle)
             }
-            for (int j = 0; j < N; j++) //zliczenie a nastepnie usrednienie (deltyR)^2
+            for (int j = 0; j < N; j++) //counting and then averaging (deltaR)^2
             {
                 dRxR[j] = dx[j] * dx[j] + dy[j] * dy[j];
                 DR2 += dRxR[j];
             }
-            DR2 /= double(N); //uśrednienie po liczbie atmowó
+            DR2 /= double(N); //uśrednienie po liczbie atomów
             
             DR2_sr += DR2;
         }
-        DR2_sr /= 30.0; //usrednienie po niezależnych realizacjach
+        DR2_sr /= 30.0; //averaging after independent realizations
        
-    D=DR2_sr/4/double(K); //wyliczenie szukanej liczby  D = sredniej gestosci
+    D=DR2_sr/4/double(K); //calculation of the number sought D = average density
     if (true)
     {
         cout << endl << endl << K << " " << D << endl;
@@ -189,7 +189,7 @@ for(int N=n;N<n+1;N++) //petla krokow monte-carlo (zmiana liczby atomow->zmiana 
     }
 
 }
-    C=N/double(L)/double(L); //gęstość C
+    C=N/double(L)/double(L); //concentration C
     //cout<<endl<<endl<<C<<" "<<D<<endl;
     //plik2<<C<<" "<<D<<endl;
 }
@@ -198,7 +198,7 @@ for(int N=n;N<n+1;N++) //petla krokow monte-carlo (zmiana liczby atomow->zmiana 
     //cout << '\n' << '\n' << '\n' << '\n' << '\n' << '\n';
    // pokaz(space, L);
 
-    for (int i = 0; i < L; i++) //zwolnienie pamieci uzytej przez zadeklarowane tablice
+    for (int i = 0; i < L; i++) 
     {
         delete[] space[i];
     }
