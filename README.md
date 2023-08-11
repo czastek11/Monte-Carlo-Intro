@@ -18,3 +18,13 @@ In the graph above, the results of the monte-carlo simulation of the spin model 
 The simulation result is almost identical to the predicted results.  According to the theory of this model, the dependence of the average spin (magnetization) on the 
 reduced temperature should be mi(T*)=tanh(1/T*), and as can be seen in the graph, the curve of the theoretical result almost coincides with the simulation result.
 (simulation parameters : reduced temperature from 0.1 to 15 ; 500 spins ; 100,000 MCS steps - analysis every 100th step without considering the MCS(0-10000) range)
+
+4.Ising Model 3D
+The 'wykres m' graph shows the results of the monte-carlo simulation of the Ising 3D model .
+The field magnetization of the system for a given reduced temperature and the resulting relationship is shown in the graph.
+Simulations were carried out for 3 different model sizes (cube with side L): L=5,L=10 and L=30 . For a larger number of spins, the graph tends to a step function ,
+as the theory assumes.
+The 'wykres c' graph shows the results of the monte-carlo simulation of the Ising 3D model . The field heat capacity per spin from the formula C=1/(N(T*^2))*(<U^2>-(<U>)^2)
+for a given reduced temperature and the resulting relationship is shown in the graph. Simulations were carried out for 3 different model sizes (cube with side L): L=5,L=10 and L=30.
+
+(simulation parameters : temperature reduced from 2 to 5.5 step value 0.025 ; L sizes 5 ,10 and 30 ; 130,000 MCS steps - analysis every 100th step without considering the MCS(0-30000) range )
